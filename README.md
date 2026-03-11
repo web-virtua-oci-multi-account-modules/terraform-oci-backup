@@ -159,6 +159,7 @@ variable "volume_groups" {
 |------|------|
 | [oci_core_volume_backup_policy.create_volume_backup_policy](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/core_volume_backup_policy) | resource |
 | [oci_core_volume_group.create_volume_groups](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/core_volume_group.html) | resource |
+| [oci_core_volume_backup_policy_assignment.create_volume_backup_policy_assignment](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/core_volume_backup_policy_assignment) | resource |
 
 ## Outputs
 

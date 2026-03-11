@@ -37,7 +37,6 @@ resource "oci_core_volume_group" "create_volume_groups" {
   availability_domain = each.value.availability_domain
   compartment_id      = each.value.compartment_id != null ? each.value.compartment_id : var.compartment_id
   display_name        = each.value.name != null ? each.value.name : "${var.name}-volume-group"
-  backup_policy_id    = each.value.backup_policy_id != null ? each.value.backup_policy_id : oci_core_volume_backup_policy.create_volume_backup_policy.id
   defined_tags        = each.value.defined_tags
   freeform_tags       = each.value.freeform_tags
 
@@ -57,4 +56,11 @@ resource "oci_core_volume_group" "create_volume_groups" {
       display_name        = each.value.volume_group_replicas.display_name
     }
   }
+}
+
+resource "oci_core_volume_backup_policy_assignment" "create_volume_backup_policy_assignment" {
+  for_each = { for index, volume_group in var.volume_groups : index => volume_group }
+
+  asset_id  = oci_core_volume_group.create_volume_groups[each.key].id
+  policy_id = each.value.backup_policy_id != null ? each.value.backup_policy_id : oci_core_volume_backup_policy.create_volume_backup_policy.id
 }
